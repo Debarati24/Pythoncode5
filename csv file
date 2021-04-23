@@ -1,0 +1,35 @@
+import csv
+
+def write_into_csv(info_list):
+    with open('student_info.csv', 'a', newline='') as csv_file:
+        writer= csv.writer(csv_file)
+
+        if csv_file.tell() == 0:
+            writer.writerow(["NAME", "AGE", "CONTACT NUMBER", "EMAIL ID", "ADDRESS"])
+        
+        writer.writerow(info_list)
+
+if __name__ == '__main__':
+    condition = True
+    student_num = 1
+    
+    while(condition):
+        student_info = input("Enter student information for student {} in the following format (NAME AGE CONTACT_NUMBER EMAIL_ID ADDRESS): ".format(student_num))
+        
+        student_info_list = student_info.split(' ')
+
+        print("\nThe entered information is- \nNAME: {}\nAGE: {}\nCONTACT_NUMBER: {}\nEMAIL_ID: {}\nADDRESS: {}" .format(student_info_list[0], student_info_list[1], student_info_list[2], student_info_list[3], student_info_list[4]))
+
+        choice_check = input("Do you want to alter the information you added (YES/NO) : ")
+
+        if choice_check == "NO":
+           write_into_csv(student_info_list)
+           condition_check = input("Do you want to add information of other students (YES/NO): ")
+           if condition_check =="YES":
+               condition = True
+               student_num=student_num+1
+           elif condition_check == "NO":
+            condition = False
+        
+        elif choice_check == "YES":
+            print("\nPlease re-enter the details!\n")
